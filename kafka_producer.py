@@ -19,13 +19,18 @@ def build_kafka_event(version_id, segment_id, recall_func_results):
     return kafka_event_format
 
 
-producer = KafkaProducer(bootstrap_servers=[f"{conf['kafka_hostname']}:{conf['kafka_port']}"])
-# Asynchronous by default
-future = producer.send(conf['kafka_topic'], b'raw_bytes')
-# Block for 'synchronous' sends
-try:
-    record_metadata = future.get(timeout=10)
-except KafkaError:
-    # Decide what to do if produce request failed...
-    # log.exception()
-    pass
+def create_kafka_producer(version_id: int, segment_id: int, recall_result: int):
+    record_metadata = None
+
+    producer = KafkaProducer(bootstrap_servers=[f"{conf['kafka_hostname']}:{conf['kafka_port']}"])
+
+    kafka_ans = producer.send(conf['kafka_topic'], build_kafka_event(version_id=version_id, segment_id=segment_id,
+                                                                     recall_func_results=recall_result))
+    try:
+        record_metadata = kafka_ans.get(timeout=10)
+    except KafkaError:
+        # log.exception()
+        pass
+    if record_metadata:
+        print(record_metadata)
+    return kafka_ans
