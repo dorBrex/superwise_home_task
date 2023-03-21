@@ -1,3 +1,5 @@
+from typing import Dict
+
 from flask import Flask, request, jsonify
 from parse_and_recall import main_functionality
 
@@ -13,10 +15,7 @@ def hello():
     return "Hello World!"
 
 
-success_referring_kafka = None
-
-
-def build_response_for_client(version_id: int, segment_id: int = None):
+def build_response_for_client(version_id: int, segment_id: int = None) -> Dict:
     generic_resp = f'success calculating the recall for version {version_id}'
     if segment_id:
         expanded_resp = generic_resp + f"and segment {segment_id}"
@@ -37,10 +36,10 @@ def get_data():
     except Exception as e:
         pass  # no segment id received
 
-    resp = main_functionality(version_id=_version_id, segment_id=_segment_id)
-    if resp:
-        resp = build_response_for_client(version_id=_version_id, segment_id=_segment_id):
-        return resp
+    recall_status = main_functionality(version_id=_version_id, segment_id=_segment_id)
+    if recall_status:
+        resp = build_response_for_client(version_id=_version_id, segment_id=_segment_id)
+        return jsonify(resp)
 
 
 if __name__ == '__main__':
