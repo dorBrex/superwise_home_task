@@ -69,12 +69,13 @@ def main_functionality(version_id: int, segment_id: Optional[int]):
 
     total_positives = true_positives.union(false_negatives)
 
-    recall_res = calculate_recall(true_positives=true_positives, total_actual_positive=total_positives)
+    recall_res = calculate_recall(true_positive=true_positives, total_actual_positive=total_positives)
 
     kafka_resp = create_kafka_producer(version_id=version_id, segment_id=segment_id, recall_result=recall_res)
     return kafka_resp
 
 
+# ToDo : work on this function
 def find_true_positives(predicts: Dict, real_data: Dict) -> set:
     true_positives = set()  # no doubled or repetitive/redundant data allowed
 
@@ -89,6 +90,7 @@ def find_true_positives(predicts: Dict, real_data: Dict) -> set:
     return true_positives
 
 
+# ToDo : work on this function
 def find_false_negatives(predicts: Dict, real_data: Dict):
     false_negatives = set()  # no doubled or repetitive/redundant data allowed
     # for real_record_key in real_data.keys():
@@ -101,6 +103,7 @@ def find_false_negatives(predicts: Dict, real_data: Dict):
     return false_negatives
 
 
+# ToDo : work on this function
 def calculate_recall(true_positive: set, total_actual_positive: set):
     """
         recall function is a performance metric applied to a data retrieved from a collection.
