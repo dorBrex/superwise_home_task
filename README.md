@@ -1,22 +1,23 @@
 # The superwise project
-A script that connects to your asdf user and send opening lines to the people you liked already on the app.
+super wise task
 
 
 
 # How to use the server
 
-[![N|Solid]()](https://www.linkedin.com/in/dor-barak/)
-
-The asdf asdf is a python writted scrip
-
-- Easy to use
-- Saving time
+the flow should do:
+- start flask server on docker
+- open endpoint for client to do get to specific route
+- parse the request from the client 
+- db retrival data
+- parse data from db and calculate recall
+- send the result of the recall to kafka
+- send a response back to the client
 
 
 ## Features
 
-- Connects to your personal 
-- Save your cookies and personal authentication information 
+- x
 
 
 ## ToDos:
@@ -26,7 +27,7 @@ The asdf asdf is a python writted scrip
 
 - Build and deploy the server on a docker using DockerFile / docker.yaml for Docker Compose in order to make it more reslient and robust.
 
-- Consider adding asyncio for the concurreny working on the same DB with 2 different tables (same for different topics of kafka)
+- Consider adding asyncio for the concurrency working on the same DB with 2 different tables (same for different topics of kafka)
 
 - Consider adding reversed proxy and load balancer for the server backend (nginx, apache httpd)
 
@@ -36,13 +37,10 @@ The asdf asdf is a python writted scrip
 
 - Exceptions and Errors wider consideration
 
-- Adding caching to the Database - instead of refering to it every request of a client, but retrieve it actively pariodically every X seconds/minutes/hours - it's probably not changing all the time (at least for this exercise)
+- Adding caching to the Database - instead of referring to it every request of a client, but retrieve it actively pariodically every X seconds/minutes/hours - it's probably not changing all the time (at least for this exercise)
 
 ## Tech & Installation
 
-The superwise project uses a number of open source projects to work properly:
+The superwise project uses a number of sources to work properly:
 
-- [Python] - Python 3.4+ to run the script on your computer
-- [Pycharm] - Free IDE - text editor and developers environment in order to edit the script.
-- [Git Bash] - A program to clone the repo from github to your local machine.
-- [Chrome Web Driver] - Download it from the original site and 
+- [Python] - Python 3.4+ to run the code on your computer
