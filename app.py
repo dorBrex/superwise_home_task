@@ -24,21 +24,22 @@ def build_response_for_client(version_id: int, segment_id: int = None) -> Dict:
 
 
 # /v1/recall/version/{version_id}?segment_id={segment_id}
-@app.route('/v1/recall/version/<version_id>', defaults={'segment_id': None})
-@app.route('/v1/recall/version/<version_id>/<segment_id>', methods=['GET'])
-def get_data():
-    _version_id = int(request.args.get('version_id'))  # must receive it.
-    # ToDo: connect this logic to ->main parsing request -> db retrival data -> parse data from db and calculate recall
-    #  -> send the result of the recall to kafka -> send a response back to the client
+# @app.route('/v1/recall/version/<version_id>', defaults={'segment_id': None})
+# @app.route('/v1/recall/version/<version_id>/<segment_id>', methods=['GET'])
+@app.route('/v1/recall/version', methods=['GET'])
+def v1():
+    version_id = int(request.args.get('version_id'))
+    segment_id = request.args.get('segment_id', None)
+    if segment_id:
+        segment_id = int(segment_id)
 
-    try:
-        _segment_id = int(request.args.get('segment_id'))  # optionally receive it.
-    except Exception as e:
-        pass  # no segment id received
+    # Main Logic: connect this logic to ->  main parsing request ->
+    # db retrival data ->  parse data from db and calculate recall ->
+    # send the result of the recall to kafka -> send a response back to the client
 
-    recall_status = main_functionality(version_id=_version_id, segment_id=_segment_id)
+    recall_status = main_functionality(version_id=version_id, segment_id=segment_id)
     if recall_status:
-        resp = build_response_for_client(version_id=_version_id, segment_id=_segment_id)
+        resp = build_response_for_client(version_id=version_id, segment_id=segment_id)
         return jsonify(resp)
 
 

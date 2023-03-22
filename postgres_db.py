@@ -1,7 +1,7 @@
 from typing import Tuple, List
 
-from conf_reader import conf
 import psycopg2
+from conf_reader import conf
 
 """
     PostgressSQL Database
@@ -30,4 +30,6 @@ def connect_and_retrieve_data_from_psotgres() -> Tuple[List, List]:
 
     # Closing the connection
     conn.close()
+    print(f"There are {len(predictions_table)} predictions that looks li {predictions_table[0]}\n"
+          f"and {len(actual_table)} actuals that look like {actual_table[0]}")
     return predictions_table, actual_table

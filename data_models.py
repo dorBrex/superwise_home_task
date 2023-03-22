@@ -19,7 +19,7 @@ class ActualData:
     actual_value: int  # The value that the model was trying to predict
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class UnionedData:
     version_id: int
     segment_id: int
